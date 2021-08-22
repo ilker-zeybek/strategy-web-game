@@ -1,7 +1,7 @@
 const app = {
   data() {
     return {
-      counterr: 0,
+      counter: 0,
     };
   },
   methods: {
@@ -11,4 +11,4 @@ const app = {
   },
 };
 
-Vue.createApp(app).mount('#app');
+Vue.createApp(app).mount('#index');

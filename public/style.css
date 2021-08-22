@@ -1,9 +1,72 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+body {
+  min-height: 100vh;
+  background: black !important;
 }
 
-[v-cloak] {
-  display: none !important;
+nav {
+  padding-top: 3rem;
+  width: 100vw;
+  display: flex;
+}
+
+nav > h1 {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 3rem;
+  margin-right: 1rem;
+  margin-bottom: 0 !important;
+}
+
+nav > h5 {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 3rem;
+  margin-right: 1rem;
+  margin-bottom: 0 !important;
+}
+
+nav > img {
+  margin: auto;
+}
+
+nav > ul {
+  list-style-type: none;
+  display: flex;
+  width: 50vw;
+  margin-bottom: 0 !important;
+  margin-right: 3rem;
+  margin-left: auto;
+  align-items: center;
+  padding: 0 !important;
+}
+
+nav > ul > li {
+  justify-content: center;
+}
+
+nav > ul > li.register {
+  margin-left: auto;
+}
+
+nav > ul > li.login {
+  margin-left: 3rem;
+}
+
+@media only screen and (max-width: 768px) {
+  nav > img {
+    width: 20%;
+  }
+  nav > h1 {
+    margin-left: 1rem;
+  }
+  nav > ul > li.login {
+    margin-left: 2rem;
+  }
 }
