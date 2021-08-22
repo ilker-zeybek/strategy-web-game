@@ -1,7 +1,7 @@
 const app = {
   data() {
     return {
-      counter: 0,
+      counterr: 0,
     };
   },
   methods: {
