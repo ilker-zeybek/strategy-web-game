@@ -49,9 +49,6 @@ nav > ul > li.register {
   margin-right: 2rem;
 }
 
-nav > ul > li.login {
-}
-
 @media only screen and (max-width: 1032px) {
   nav > h4 {
     display: none;
