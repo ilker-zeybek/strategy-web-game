@@ -23,16 +23,16 @@
             <h4>Conquer the Universe</h4>
             <ul>
                 <li class="register">
-                    <button class="btn btn-outline-light">Register</button>
+                    <button @click.prevent="onClickRegister" class="btn btn-outline-light">Register</button>
                 </li>
                 <li class="login">
-                    <button class="btn btn-success">Login</button>
+                    <button @click.prevent="onClickLogin" class="btn btn-success">Login</button>
                 </li>
             </ul>
         </nav>
 
         <main>
-            <article>
+            <article class="card-face card-front">
                 <p>
                     <span style="font-weight: bold;">Singularity</span> is an online turn-based multiplayer strategy
                     game.
@@ -51,6 +51,49 @@
                     irreversible, resulting in unforeseeable changes to human civilization.
                 </p>
             </article>
+            <form v-if="register && !login" class="card-face card-back" id="register-form">
+                <div class="username">
+                    <img src="./assets/username.png" alt="username">
+
+                    <input type="text" name="username" class="form-control" id="validationServer01"
+                        placeholder="Username" aria-label="Username" aria-describedby="button-addon2" required>
+                </div>
+
+                <div class="password">
+                    <img src="./assets/password.png" alt="password">
+
+                    <input type="password" class="form-control" id="validationServer01" placeholder="Password"
+                        aria-label="Password" aria-describedby="button-addon2" required>
+
+                </div>
+                <div class="password">
+                    <img src="./assets/password.png" alt="password">
+
+                    <input type="password" class="form-control" id="validationServer01" placeholder="Repeat Password"
+                        aria-label="Repeat Password" aria-describedby="button-addon2" required>
+                </div>
+
+
+                <button class="btn btn-success" type="submit" id="button-addon2">Register now!</button>
+            </form>
+            <form v-if="!register && login" class="card-face card-back" id=>,
+                <div class="username">
+                    <img src="./assets/username.png" alt="username">
+
+                    <input type="text" name="username" class="form-control" id="validationServer01"
+                        placeholder="Username" aria-label="Username" aria-describedby="button-addon2" required>
+                </div>
+
+                <div class="password">
+                    <img src="./assets/password.png" alt="password">
+
+                    <input type="password" class="form-control" id="validationServer01" placeholder="Password"
+                        aria-label="Password" aria-describedby="button-addon2" required>
+
+                </div>
+
+                <button class="btn btn-success" type="submit" id="button-addon2">Login</button>
+            </form>
         </main>
 
         <footer>
