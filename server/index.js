@@ -3,7 +3,6 @@ const path = require('path');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const supabase = require('./supabase');
-const { reset } = require('nodemon');
 
 const app = express();
 const port = 3000;
