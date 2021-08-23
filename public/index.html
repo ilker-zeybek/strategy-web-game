@@ -16,11 +16,11 @@
 </head>
 
 <body>
-    <div id="app">
+    <div v-cloak id="app">
         <nav>
-            <img src="./assets/logo.png" alt="">
+            <img @click.prevent='onClickLogo' src="./assets/logo.png" alt="logo">
             <h1>SINGULARITY</h1>
-            <h4>Conquer the Universe</h4>
+            <h4>Conquer the World</h4>
             <ul>
                 <li class="register">
                     <button @click.prevent="onClickRegister" class="btn btn-outline-light">Register</button>
@@ -32,7 +32,7 @@
         </nav>
 
         <main>
-            <article class="card-face card-front">
+            <article v-if='!register & !login'>
                 <p>
                     <span style="font-weight: bold;">Singularity</span> is an online turn-based multiplayer strategy
                     game.
@@ -51,44 +51,47 @@
                     irreversible, resulting in unforeseeable changes to human civilization.
                 </p>
             </article>
-            <form v-if="register && !login" class="card-face card-back" id="register-form">
-                <div class="username">
+            <form @submit.prevent='onRegister' v-if="register && !login" method="POST">
+                <div class="username-register">
                     <img src="./assets/username.png" alt="username">
 
-                    <input type="text" name="username" class="form-control" id="validationServer01"
-                        placeholder="Username" aria-label="Username" aria-describedby="button-addon2" required>
+                    <input v-model='usernameRegister' type="text" name="username" class="form-control"
+                        id="validationServer01" placeholder="Username" aria-label="Username"
+                        aria-describedby="button-addon2" required>
                 </div>
 
                 <div class="password">
                     <img src="./assets/password.png" alt="password">
 
-                    <input type="password" class="form-control" id="validationServer01" placeholder="Password"
-                        aria-label="Password" aria-describedby="button-addon2" required>
+                    <input v-model='passwordRegister' type="password" class="form-control" id="validationServer01"
+                        placeholder="Password" aria-label="Password" aria-describedby="button-addon2" required>
 
                 </div>
                 <div class="password">
                     <img src="./assets/password.png" alt="password">
 
-                    <input type="password" class="form-control" id="validationServer01" placeholder="Repeat Password"
-                        aria-label="Repeat Password" aria-describedby="button-addon2" required>
+                    <input v-model='passwordRepeatRegister' type="password" class="form-control" id="validationServer01"
+                        placeholder="Repeat Password" aria-label="Repeat Password" aria-describedby="button-addon2"
+                        required>
                 </div>
 
 
                 <button class="btn btn-success" type="submit" id="button-addon2">Register now!</button>
             </form>
-            <form v-if="!register && login" class="card-face card-back" id=>,
+            <form @submit.prevent='onLogin' v-if="!register && login" method="POST">,
                 <div class="username">
                     <img src="./assets/username.png" alt="username">
 
-                    <input type="text" name="username" class="form-control" id="validationServer01"
-                        placeholder="Username" aria-label="Username" aria-describedby="button-addon2" required>
+                    <input v-model='usernameLogin' type="text" name="username" class="form-control"
+                        id="validationServer01" placeholder="Username" aria-label="Username"
+                        aria-describedby="button-addon2" required>
                 </div>
 
                 <div class="password">
                     <img src="./assets/password.png" alt="password">
 
-                    <input type="password" class="form-control" id="validationServer01" placeholder="Password"
-                        aria-label="Password" aria-describedby="button-addon2" required>
+                    <input v-model='passwordLogin' type="password" class="form-control" id="validationServer01"
+                        placeholder="Password" aria-label="Password" aria-describedby="button-addon2" required>
 
                 </div>
 
