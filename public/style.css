@@ -93,6 +93,12 @@ form > button {
   display: inline-block;
 }
 
+.message {
+  text-align: center;
+  width: 50%;
+  color: white;
+}
+
 footer {
   width: 60vw;
   display: flex;

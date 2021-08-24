@@ -17,74 +17,62 @@ app.get('/', (req, res) => {
 });
 
 app.post('/register', async (req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
-  const passwordRepeat = req.body.repeatedPassword;
-
-  const { data: usernameMatch, errorRead } = await supabase
-    .from('user')
-    .select('username')
-    .eq('username', username);
-
-  if (usernameMatch.length !== 0) {
-    return res.send({
-      message: 'Username already exists.',
-    });
-  } else if (errorRead) {
-    return res.send({
-      message: 'Unexpected error. Try again.',
-    });
-  }
-
-  if (password === passwordRepeat) {
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-    const { data, errorInsert } = await supabase.from('user').insert([
-      {
-        username: username,
-        password: hashedPassword,
-      },
-    ]);
-  } else if (password !== passwordRepeat) {
-    return res.send({
+  if (req.body.password === req.body.passwordRepeat) {
+    try {
+      const { user, error } = await supabase.auth.signUp({
+        email: req.body.email,
+        password: req.body.password,
+      });
+      if (error) {
+        res.send({
+          message: 'Email is in use.',
+        });
+      } else {
+        res.send({
+          status: 200,
+          message: 'Successfully registered.',
+        });
+      }
+    } catch (e) {
+      res.send({
+        message: 'Unexpected error.',
+      });
+    }
+  } else {
+    res.send({
       message: 'Passwords do not match.',
     });
-  } else if (errorInsert) {
-    return res.send({
-      message: 'Unexpected error. Try again.',
-    });
   }
-
-  return res.send({
-    message: 'Successfully registered.',
-  });
 });
 
 app.post('/login', async (req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
-  const { data: databasePassword, errorRead } = await supabase
-    .from('user')
-    .select('password')
-    .eq('username', username);
-  if (errorRead) {
-    return res.send({
-      message: 'Unexpected error. Try again.',
+  try {
+    const { user, session, error } = await supabase.auth.signIn({
+      email: req.body.email,
+      password: req.body.password,
     });
-  } else {
-    const isAuthenticated = await bcrypt.compare(
-      password,
-      databasePassword[0].password
-    );
-    if (isAuthenticated) {
-      return res.send({
-        message: 'Successfully logged in.',
+    if (error) {
+      res.send({
+        message: 'Authentication failed.',
       });
     } else {
-      return res.send({
-        message: 'Wrong username or password.',
+      res.send({
+        message: 'Successfully logged in.',
       });
     }
+  } catch (e) {
+    res.send({
+      message: 'Unexpected error.',
+    });
+  }
+});
+
+app.get('/profile', async (req, res) => {
+  const session = supabase.auth.session();
+  if (session) {
+    res.send('Profile page');
+  } else {
+    res.send('You can not access.');
   }
 });
 

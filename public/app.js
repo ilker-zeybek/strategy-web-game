@@ -3,68 +3,67 @@ const app = {
     return {
       register: false,
       login: false,
-      usernameRegister: null,
+      emailRegister: null,
       passwordRegister: null,
       passwordRepeatRegister: null,
-      usernameLogin: null,
+      emailLogin: null,
       passwordLogin: null,
       response: null,
+      registerMessage: null,
+      loginMessage: null,
     };
   },
   methods: {
     onClickRegister() {
-      const card = document.querySelector('main');
       this.login = false;
       this.register = !this.register;
-      if (this.register) {
-        card.classList.add('is-flipped');
-      } else {
-        card.classList.remove('is-flipped');
-      }
+      this.response = null;
+      this.registerMessage = null;
+      this.loginMessage = null;
     },
     onClickLogin() {
-      const card = document.querySelector('main');
       this.register = false;
       this.login = !this.login;
-      if (this.login) {
-        card.classList.add('is-flipped');
-      } else {
-        card.classList.remove('is-flipped');
-      }
+      this.response = null;
+      this.registerMessage = null;
+      this.loginMessage = null;
     },
     onClickLogo() {
       this.register = false;
       this.login = false;
+      this.response = null;
+      this.registerMessage = null;
+      this.loginMessage = null;
     },
     async onRegister() {
       const response = await fetch('http://localhost:3000/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          username: this.usernameRegister,
+          email: this.emailRegister,
           password: this.passwordRegister,
-          repeatedPassword: this.passwordRepeatRegister,
+          passwordRepeat: this.passwordRepeatRegister,
         }),
       });
-      this.usernameRegister = null;
+      this.emailRegister = null;
       this.passwordRegister = null;
       this.passwordRepeatRegister = null;
       this.response = await response.json();
-      console.log(this.response.message);
+      this.registerMessage = this.response.message;
     },
     async onLogin() {
       const response = await fetch('http://localhost:3000/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          username: this.usernameLogin,
+          email: this.emailLogin,
           password: this.passwordLogin,
         }),
       });
-      this.usernameLogin = null;
+      this.emailLogin = null;
       this.passwordLogin = null;
       this.response = await response.json();
-      console.log(this.response.message);
+      this.loginMessage = this.response.message;
     },
   },
 };
