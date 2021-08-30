@@ -36,7 +36,7 @@ const app = {
       this.loginMessage = null;
     },
     async onRegister() {
-      const response = await fetch('http://localhost:3000/register', {
+      const response = await fetch('http://localhost:3000/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -52,7 +52,7 @@ const app = {
       this.registerMessage = this.response.message;
     },
     async onLogin() {
-      const response = await fetch('http://localhost:3000/login', {
+      const response = await fetch('http://localhost:3000/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
