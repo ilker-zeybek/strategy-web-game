@@ -64,6 +64,9 @@ const app = {
       this.passwordLogin = null;
       this.response = await response.json();
       this.loginMessage = this.response.message;
+      if (this.loginMessage == 'Successfully logged in.') {
+        window.location.href = 'http://localhost:3000/lobby/profile';
+      }
     },
   },
 };

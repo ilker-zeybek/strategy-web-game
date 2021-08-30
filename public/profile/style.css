@@ -1,0 +1,13 @@
+* {
+  font-family: 'Poppins', sans-serif;
+}
+[v-cloak] {
+  display: none !important;
+}
+
+html,
+body {
+  color: white;
+  height: 100%;
+  background: black !important;
+}

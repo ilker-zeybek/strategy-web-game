@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const supabase = require('../supabase/client');
+const cookieParser = require('cookie-parser');
+
+router.use(cookieParser());
 
 router.post('/register', async (req, res) => {
   if (req.body.password === req.body.passwordRepeat) {
@@ -14,7 +17,7 @@ router.post('/register', async (req, res) => {
           message: 'Email is in use.',
         });
       } else {
-        const { data, error } = await supabase.from('profiles').insert([
+        const { error } = await supabase.from('profiles').insert([
           {
             id: user.id,
             updated_at: user.updated_at,
@@ -58,9 +61,13 @@ router.post('/login', async (req, res) => {
         message: 'Authentication failed.',
       });
     } else {
-      res.send({
-        message: 'Successfully logged in.',
-      });
+      res
+        .cookie('id', session.user.id, {
+          maxAge: 2 * 60 * 60 * 1000,
+        })
+        .send({
+          message: 'Successfully logged in.',
+        });
     }
   } catch (e) {
     res.send({

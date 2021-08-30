@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <title>SINGULARITY</title>
+</head>
+
+<body>
+    <div v-cloak id="app">
+        <div class='header'>
+            <img v-if='!profilePicture' src="./assets/placeholder.png" width="150" height="150" alt="placeholder">
+            <h2 v-if='!characterName'>Welcome General!</h2>
+            <h2 v-if='characterName'>Welcome General {{characterName}}!</h2>
+        </div>
+
+        <div class="main-left">
+            <ul>
+                <li>Email: {{email}}</li>
+                <li>Total Games Played: {{winCount+loseCount}}</li>
+                <li>Win Ratio: {{winCount/(winCount+loseCount)}}</li>
+                <li>Win Count: {{winCount}}</li>
+                <li>Lose Count: {{loseCount}}</li>
+            </ul>
+        </div>
+
+        <div class="main-right">
+            <ul>
+                <li>
+                    <input v-model='characterName' type="text" name="characterName" class="form-control"
+                        id="validationServer01" placeholder="Character Name" aria-label="Character Name"
+                        aria-describedby="button-addon2">
+                    <button @click='setCharacterName' class="btn btn-success" type="submit" id="button-addon2">Set
+                        Character Name</button>
+                </li>
+
+                <li>
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Upload Profile Picture</label>
+                        <input class="form-control" type="file" name='image' id="formFile"
+                            accept="image/png, image/jpeg, image/jpg">
+                        <button @click='uploadImage' class="btn btn-success" type="submit" id="button-addon2">Upload
+                            Profile Picture</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="./bundle.js"></script>
+</body>
+
+</html>
