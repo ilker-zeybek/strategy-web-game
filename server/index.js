@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('../public/index'));
 app.use('/auth', auth);
-app.use('/lobby', profile);
+app.use('/user', profile);
 
 app.get('/', (req, res) => {
   res.sendFile(path.resolve('../public/index/index.html'));

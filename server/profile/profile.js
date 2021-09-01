@@ -3,7 +3,6 @@ const router = express.Router();
 const path = require('path');
 const multer = require('multer');
 const supabase = require('../supabase/client');
-const { decode } = require('base64-arraybuffer');
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
@@ -16,6 +15,27 @@ router.get('/profile', async (req, res) => {
     res.sendFile(path.resolve('../public/profile/profile.html'));
   } else {
     res.redirect('/');
+  }
+});
+
+router.get('/:id', async (req, res) => {
+  const userID = req.params.id;
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('email,character_name,profile_picture,win_count,lose_count')
+    .eq('id', userID);
+  if (error) {
+    res.send({
+      message: 'Unexpected error.',
+    });
+  } else {
+    res.send({
+      email: data[0].email,
+      characterName: data[0].character_name,
+      profilePictureUrl: data[0].profile_picture,
+      winCount: data[0].win_count,
+      loseCount: data[0].lose_count,
+    });
   }
 });
 

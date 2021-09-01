@@ -8,7 +8,6 @@ const app = {
       passwordRepeatRegister: null,
       emailLogin: null,
       passwordLogin: null,
-      response: null,
       registerMessage: null,
       loginMessage: null,
     };
@@ -17,26 +16,23 @@ const app = {
     onClickRegister() {
       this.login = false;
       this.register = !this.register;
-      this.response = null;
       this.registerMessage = null;
       this.loginMessage = null;
     },
     onClickLogin() {
       this.register = false;
       this.login = !this.login;
-      this.response = null;
       this.registerMessage = null;
       this.loginMessage = null;
     },
     onClickLogo() {
       this.register = false;
       this.login = false;
-      this.response = null;
       this.registerMessage = null;
       this.loginMessage = null;
     },
     async onRegister() {
-      const response = await fetch('http://localhost:3000/auth/register', {
+      let response = await fetch('http://localhost:3000/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -48,11 +44,11 @@ const app = {
       this.emailRegister = null;
       this.passwordRegister = null;
       this.passwordRepeatRegister = null;
-      this.response = await response.json();
-      this.registerMessage = this.response.message;
+      response = await response.json();
+      this.registerMessage = response.message;
     },
     async onLogin() {
-      const response = await fetch('http://localhost:3000/auth/login', {
+      let response = await fetch('http://localhost:3000/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -62,10 +58,10 @@ const app = {
       });
       this.emailLogin = null;
       this.passwordLogin = null;
-      this.response = await response.json();
-      this.loginMessage = this.response.message;
+      response = await response.json();
+      this.loginMessage = response.message;
       if (this.loginMessage == 'Successfully logged in.') {
-        window.location.href = 'http://localhost:3000/lobby/profile';
+        window.location.href = 'http://localhost:3000/user/profile';
       }
     },
   },
