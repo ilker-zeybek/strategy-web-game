@@ -75,9 +75,28 @@ router.post(
           message: 'Failed to upload.',
         });
       } else {
-        res.send({
-          message: 'Successfully uploaded.',
-        });
+        const { publicURL, error } = await supabase.storage
+          .from('profile_pictures')
+          .getPublicUrl(`${session.user.id}.jpg`);
+        if (error) {
+          res.send({
+            message: 'Failed to get profile picture url.',
+          });
+        } else {
+          const { error } = await supabase
+            .from('profiles')
+            .update({ profile_picture: publicURL })
+            .match({ id: session.user.id });
+          if (error) {
+            res.send({
+              message: 'Failed to insert profile picture url.',
+            });
+          } else {
+            res.send({
+              message: 'Successfully uploaded.',
+            });
+          }
+        }
       }
     }
   }

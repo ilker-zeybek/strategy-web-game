@@ -7,6 +7,7 @@ const app = {
       email: null,
       updatedAt: null,
       characterName: null,
+      characterNameDisplay: null,
       profilePicture: null,
       profilePictureUrl: null,
       winCount: null,
@@ -15,6 +16,26 @@ const app = {
       messageProfilePicture: null,
       messageCharacterName: null,
     };
+  },
+  async beforeMount() {
+    //Get the profile data on mount event.
+    this.getProfileData();
+  },
+  destroyed() {
+    //Add event listener to the profile picture input.
+    const profilePictureElement = document.getElementById('profilePicture');
+    console.log(profilePictureElement);
+    profilePictureElement.removeEventListener('change', async (e) => {
+      this.profilePicture = e.target.files[0];
+    });
+  },
+  updated() {
+    //Add event listener to the profile picture input.
+    const profilePictureElement = document.getElementById('profilePicture');
+    console.log(profilePictureElement);
+    profilePictureElement.addEventListener('change', async (e) => {
+      this.profilePicture = e.target.files[0];
+    });
   },
   methods: {
     async setCharacterName() {
@@ -27,10 +48,12 @@ const app = {
       });
       response = await response.json();
       this.messageCharacterName = response.message;
+      this.getProfileData();
     },
     async uploadImage() {
       const formData = new FormData();
       formData.append('image', this.profilePicture);
+      console.log(formData);
       let response = await fetch(
         'http://localhost:3000/user/profile/setprofilepicture',
         {
@@ -40,24 +63,18 @@ const app = {
       );
       response = await response.json();
       this.messageProfilePicture = response.message;
+      this.getProfileData();
     },
-  },
-  async mounted() {
-    //Get the profile data on mount event.
-    const userID = getCookie('id');
-    let response = await fetch(`http://localhost:3000/user/${userID}`);
-    response = await response.json();
-    this.email = response.email;
-    this.characterName = response.characterName;
-    this.profilePictureUrl = response.profilePictureUrl;
-    this.winCount = response.winCount;
-    this.loseCount = response.loseCount;
-
-    //Add the event listener for profile picture upload.
-    const profilePictureElement = document.getElementById('formFile');
-    profilePictureElement.addEventListener('change', async (e) => {
-      this.profilePicture = e.target.files[0];
-    });
+    async getProfileData() {
+      const userID = getCookie('id');
+      let response = await fetch(`http://localhost:3000/user/${userID}`);
+      response = await response.json();
+      this.email = response.email;
+      this.characterNameDisplay = response.characterName;
+      this.profilePictureUrl = response.profilePictureUrl;
+      this.winCount = response.winCount;
+      this.loseCount = response.loseCount;
+    },
   },
 };
 

@@ -1,6 +1,7 @@
 * {
   font-family: 'Poppins', sans-serif;
 }
+
 [v-cloak] {
   display: none !important;
 }
@@ -12,6 +13,10 @@ body {
 }
 
 #app {
+  height: 100%;
+}
+
+.wrapper {
   padding: 3rem 0;
   height: 100%;
   display: flex;
