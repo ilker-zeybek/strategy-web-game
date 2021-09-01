@@ -18,45 +18,50 @@
 <body>
     <div v-cloak id="app">
         <div class='header'>
-            <img v-if='!profilePicture' src="./assets/placeholder.png" width="150" height="150" alt="placeholder">
-            <h2 v-if='!characterName'>Welcome General!</h2>
-            <h2 v-if='characterName'>Welcome General {{characterName}}!</h2>
+            <img v-if='!profilePictureUrl' src="./assets/placeholder.png" width="150" alt="placeholder">
+            <img v-if='profilePictureUrl' v-bind:src='profilePictureUrl' width="150" alt="placeholder">
+            <h1 v-if='!characterName'>Welcome General!</h1>
+            <h1 v-if='characterName'>Welcome General {{characterName}}!</h1>
         </div>
+        <div class="main">
+            <div class="main-left">
+                <ul class="user-data">
+                    <li>Email: {{email}}</li>
+                    <li>Total Games Played: {{winCount+loseCount}}</li>
+                    <li>Win Ratio: {{winCount/(winCount+loseCount)}}</li>
+                    <li>Win Count: {{winCount}}</li>
+                    <li>Lose Count: {{loseCount}}</li>
+                </ul>
+            </div>
 
-        <div class="main-left">
-            <ul>
-                <li>Email: {{email}}</li>
-                <li>Total Games Played: {{winCount+loseCount}}</li>
-                <li>Win Ratio: {{winCount/(winCount+loseCount)}}</li>
-                <li>Win Count: {{winCount}}</li>
-                <li>Lose Count: {{loseCount}}</li>
-            </ul>
-        </div>
+            <div class="main-right">
+                <ul class="user-request-data">
+                    <li>
+                        <input v-model='characterName' type="text" name="characterName" class="form-control"
+                            id="validationServer01" placeholder="Character Name" aria-label="Character Name"
+                            aria-describedby="button-addon2">
+                        <button @click='setCharacterName' class="btn btn-success" type="submit" id="button-addon2">Set
+                            Character Name</button>
+                    </li>
 
-        <div class="main-right">
-            <ul>
-                <li>
-                    <input v-model='characterName' type="text" name="characterName" class="form-control"
-                        id="validationServer01" placeholder="Character Name" aria-label="Character Name"
-                        aria-describedby="button-addon2">
-                    <button @click='setCharacterName' class="btn btn-success" type="submit" id="button-addon2">Set
-                        Character Name</button>
-                </li>
-
-                <li>
-                    <div class="mb-3">
-                        <label for="formFile" class="form-label">Upload Profile Picture</label>
+                    <li>
                         <input class="form-control" type="file" name='image' id="formFile"
                             accept="image/png, image/jpeg, image/jpg">
                         <button @click='uploadImage' class="btn btn-success" type="submit" id="button-addon2">Upload
                             Profile Picture</button>
-                    </div>
-                </li>
-            </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
+
+        <div class="footer">
+            <button class="btn btn-success" type="submit" id="button-addon2">Go to Lobby</button>
+        </div>
+
+
     </div>
     <script src="https://unpkg.com/vue@next"></script>
-    <script src="./app.js"></script>
+    <script src="./bundle.js"></script>
 </body>
 
 </html>
