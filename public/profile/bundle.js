@@ -76,6 +76,9 @@ const app = {
       this.loseCount = response.loseCount;
     },
   },
+  goToLobby() {
+    window.location.href = 'http://localhost:3000/lobby';
+  },
 };
 
 Vue.createApp(app).mount('#app');
