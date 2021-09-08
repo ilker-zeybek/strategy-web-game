@@ -3,18 +3,20 @@ const router = express.Router();
 const path = require('path');
 const supabase = require('../supabase/client');
 
-router.use((req, res, next) => {
+const checkAuth = (req, res, next) => {
   const session = supabase.auth.session();
+  console.log(session);
   if (session) {
     res.redirect('/user/profile');
   } else {
     next();
   }
-});
-router.use(express.static('../public/index'));
+};
 
-router.get('/', (req, res) => {
+router.get('/', checkAuth, (req, res) => {
   res.sendFile(path.resolve('../public/index/index.html'));
 });
+
+router.use(express.static('../public/index'));
 
 module.exports = router;

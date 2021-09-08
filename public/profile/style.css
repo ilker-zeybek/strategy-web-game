@@ -73,6 +73,10 @@ ul {
   margin-top: 10rem;
 }
 
+.footer .lobby {
+  margin-right: 2rem;
+}
+
 @media only screen and (max-width: 1284px) {
   .header {
     width: 50%;

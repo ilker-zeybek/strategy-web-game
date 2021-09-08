@@ -50,6 +50,7 @@ router.post('/register', async (req, res) => {
     });
   }
 });
+
 router.post('/login', async (req, res) => {
   try {
     const { user, session, error } = await supabase.auth.signIn({
@@ -72,6 +73,19 @@ router.post('/login', async (req, res) => {
   } catch (e) {
     res.send({
       message: 'Unexpected error.',
+    });
+  }
+});
+
+router.get('/signout', async (req, res) => {
+  const { error } = await supabase.auth.signOut();
+  if (error) {
+    res.send({
+      message: 'Unexpected error.',
+    });
+  } else {
+    res.send({
+      message: 'Successfully signed out.',
     });
   }
 });

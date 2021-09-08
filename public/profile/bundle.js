@@ -4,7 +4,7 @@ const getCookie = require('../utilities/getCookie');
 const app = {
   data() {
     return {
-      email: 'placeholder',
+      email: null,
       updatedAt: null,
       characterName: null,
       characterNameDisplay: null,
@@ -24,7 +24,6 @@ const app = {
   destroyed() {
     //Add event listener to the profile picture input.
     const profilePictureElement = document.getElementById('profilePicture');
-    console.log(profilePictureElement);
     profilePictureElement.removeEventListener('change', async (e) => {
       this.profilePicture = e.target.files[0];
     });
@@ -32,7 +31,6 @@ const app = {
   updated() {
     //Add event listener to the profile picture input.
     const profilePictureElement = document.getElementById('profilePicture');
-    console.log(profilePictureElement);
     profilePictureElement.addEventListener('change', async (e) => {
       this.profilePicture = e.target.files[0];
     });
@@ -53,7 +51,6 @@ const app = {
     async uploadImage() {
       const formData = new FormData();
       formData.append('image', this.profilePicture);
-      console.log(formData);
       let response = await fetch(
         'http://localhost:3000/user/profile/setprofilepicture',
         {
@@ -77,6 +74,15 @@ const app = {
     },
     goToLobby() {
       window.location.href = 'http://localhost:3000/lobby';
+      console.log('here');
+    },
+    async signOut() {
+      let response = await fetch('http://localhost:3000/auth/signout');
+      response = await response.json();
+      message = response.message;
+      if (message === 'Successfully signed out.') {
+        window.location.href = 'http://localhost:3000/';
+      }
     },
   },
 };
