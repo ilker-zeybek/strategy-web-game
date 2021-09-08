@@ -16,8 +16,36 @@
 </head>
 
 <body>
-    <div class="app">
-
+    <div v-cloak id="app">
+        <div class="wrapper">
+            <div class="header">
+                <img src="./assets/logo.png" alt="logo">
+                <h1>SINGULARITY</h1>
+            </div>
+            <div class="main">
+                <div class="no-room" v-if='rooms.length === 0'>
+                    <h3>Sorry, no one is playing right now.</h1>
+                </div>
+                <ul v-if='rooms.length > 0' class='lobby-list'>
+                    <li v-for="room in rooms">
+                        <div class="room-info">
+                            <span><strong>Room Name :</strong> {{room.name}}</span> <br>
+                            <span><strong>Owner :</strong> {{room.owner}}</span> <br>
+                            <span><strong>Map :</strong> {{room.mapName}}</span> <br>
+                            <span><strong>Capacity :</strong> {{room.currentPlayerCount}}/{{room.capacity}}</span> <br>
+                        </div>
+                        <button @click='joinRoom' class="btn btn-success" type="submit" id="button-addon2">Join
+                            Room</button>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer">
+                <button @click='goToProfile' class="btn btn-success profile" type="submit" id="button-addon2">Go to
+                    Profile</button>
+                <button @click='signOut' class="btn btn-success sign-out" type="submit" id="button-addon2">Sign
+                    Out</button>
+            </div>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.2/vue.global.prod.min.js"></script>

@@ -1,0 +1,98 @@
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+/*[v-cloak] {
+  display: none !important;
+}*/
+
+html,
+body {
+  background: black !important;
+}
+
+#app {
+  height: 100%;
+}
+
+.wrapper {
+  padding: 3rem 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.header {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  margin-bottom: 10rem;
+}
+
+.header > h1 {
+  margin: 0 !important;
+}
+
+.header > img {
+  margin-right: 2rem;
+}
+
+.main {
+  width: 80%;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main > ul {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.room-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main > ul > li {
+  margin: 0 2rem;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main > ul > li > button {
+  margin: 1rem 0;
+  width: 100%;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  margin-top: 10rem;
+}
+
+.footer .profile {
+  margin-right: 2rem;
+}
+
+.no-room {
+  margin: 5rem 0;
+  color: white;
+}
