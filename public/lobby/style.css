@@ -30,7 +30,7 @@ body {
   justify-content: center;
   align-items: center;
   width: 50%;
-  margin-bottom: 10rem;
+  margin-bottom: 5rem;
 }
 
 .header > h1 {
@@ -47,6 +47,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 5rem;
 }
 
 .main > ul {
@@ -85,7 +86,7 @@ body {
   justify-content: center;
   align-items: center;
   width: 50%;
-  margin-top: 10rem;
+  margin-top: 5rem;
 }
 
 .footer .profile {
@@ -95,4 +96,19 @@ body {
 .no-room {
   margin: 5rem 0;
   color: white;
+}
+
+.capacity {
+  color: white;
+  margin: 2rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }

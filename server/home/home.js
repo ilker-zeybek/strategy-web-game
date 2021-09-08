@@ -5,7 +5,6 @@ const supabase = require('../supabase/client');
 
 const checkAuth = (req, res, next) => {
   const session = supabase.auth.session();
-  console.log(session);
   if (session) {
     res.redirect('/user/profile');
   } else {

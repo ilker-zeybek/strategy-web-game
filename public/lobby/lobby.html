@@ -27,17 +27,37 @@
                     <h3>Sorry, no one is playing right now.</h1>
                 </div>
                 <ul v-if='rooms.length > 0' class='lobby-list'>
-                    <li v-for="room in rooms">
+                    <li v-for="room in rooms" :key="room.owner">
                         <div class="room-info">
-                            <span><strong>Room Name :</strong> {{room.name}}</span> <br>
-                            <span><strong>Owner :</strong> {{room.owner}}</span> <br>
-                            <span><strong>Map :</strong> {{room.mapName}}</span> <br>
-                            <span><strong>Capacity :</strong> {{room.currentPlayerCount}}/{{room.capacity}}</span> <br>
+                            <span><strong>Room Name :</strong> {{room.room_name}}</span> <br>
+                            <span><strong>Owner :</strong> {{room.character_name}}</span> <br>
+                            <span><strong>Capacity :</strong> {{room.player_count}}/{{room.capacity}}</span> <br>
                         </div>
                         <button @click='joinRoom' class="btn btn-success" type="submit" id="button-addon2">Join
                             Room</button>
                     </li>
                 </ul>
+            </div>
+            <div class="create-room">
+                <form @submit.prevent='createRoom' method="POST">
+                    <div class="room-name">
+                        <input v-model='room.name' type="text" name="room-name" class="form-control"
+                            id="validationServer01" placeholder="Room Name" aria-label="Room Name"
+                            aria-describedby="button-addon2" required>
+                    </div>
+                    <div class="capacity">
+                        <select v-model='room.capacity' class="form-select" aria-label="Default select example">
+                            <option selected>Room Capacity</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-success" type="submit" id="button-addon2">Create
+                        Room</button>
+                </form>
+
             </div>
             <div class="footer">
                 <button @click='goToProfile' class="btn btn-success profile" type="submit" id="button-addon2">Go to
