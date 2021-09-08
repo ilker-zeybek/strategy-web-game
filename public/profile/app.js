@@ -3,7 +3,7 @@ const getCookie = require('../utilities/getCookie');
 const app = {
   data() {
     return {
-      email: null,
+      email: 'placeholder',
       updatedAt: null,
       characterName: null,
       characterNameDisplay: null,

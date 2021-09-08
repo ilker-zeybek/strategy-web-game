@@ -72,3 +72,77 @@ ul {
 .footer {
   margin-top: 10rem;
 }
+
+@media only screen and (max-width: 1284px) {
+  .header {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 1150px) {
+  .main.left {
+    width: 60%;
+  }
+  .main.right {
+    width: 10%;
+  }
+  .user-request-data > li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .user-request-data > li > input {
+    margin-right: 2rem;
+    width: 40%;
+    height: 50%;
+  }
+  .user-request-data > li > button {
+    height: 10% !important;
+    width: 20%;
+  }
+  .user-request-data > li > button > span {
+    display: none;
+  }
+  .user-request-data > li > button::after {
+    content: 'Set';
+  }
+}
+
+@media only screen and (max-width: 414px) {
+  .wrapper {
+    display: flex;
+    justify-content: center;
+  }
+  .header {
+    margin-bottom: 2rem;
+  }
+  .footer {
+    margin-top: 2rem;
+  }
+  .main {
+    width: 90%;
+  }
+  .user-request-data > li > input {
+    margin-right: 0 !important;
+    margin-bottom: 1rem;
+    width: 80%;
+    height: 50%;
+  }
+  .user-request-data > li > button {
+    height: 10% !important;
+    width: 25%;
+  }
+  .user-request-data > li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .wrapper {
+    display: flex;
+    justify-content: center;
+  }
+}
