@@ -75,9 +75,9 @@ const app = {
       this.winCount = response.winCount;
       this.loseCount = response.loseCount;
     },
-  },
-  goToLobby() {
-    window.location.href = 'http://localhost:3000/lobby';
+    goToLobby() {
+      window.location.href = 'http://localhost:3000/lobby';
+    },
   },
 };
 
