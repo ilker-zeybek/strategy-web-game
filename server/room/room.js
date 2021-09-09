@@ -4,7 +4,28 @@ const path = require('path');
 
 const supabase = require('../supabase/client');
 
-router.get('/:id', async (req, res) => {
+const isInRoom = async (req, res, next) => {
+  const session = await supabase.auth.session();
+  const { data, error } = await supabase.from('rooms').select('players');
+  if (error) {
+    res.send({
+      message: 'Unexpected error.',
+    });
+  } else {
+    for (room in data) {
+      for (const key in data[room].players) {
+        if (data[room].players[key] === session.user.id) {
+          return res.send({
+            message: 'You are already in another room.',
+          });
+        }
+      }
+    }
+    next();
+  }
+};
+
+router.get('/:id', isInRoom, async (req, res) => {
   const session = await supabase.auth.session();
   const { data, error } = await supabase
     .from('rooms')
@@ -20,10 +41,6 @@ router.get('/:id', async (req, res) => {
         if (data[0].players[property] !== session.user.id) {
           const key = data[0].player_count + 1;
           data[0].players[key] = session.user.id;
-        } else {
-          return res.send({
-            message: 'You are already in this room.',
-          });
         }
       }
       const { error } = await supabase
