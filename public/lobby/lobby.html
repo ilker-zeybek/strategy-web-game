@@ -17,7 +17,7 @@
 
 <body>
     <div v-cloak id="app">
-        <div class="wrapper">
+        <div class="wrapper" v-if="done">
             <div class="header">
                 <img src="./assets/logo.png" alt="logo">
                 <h1>SINGULARITY</h1>
@@ -33,7 +33,7 @@
                             <span><strong>Owner :</strong> {{room.character_name}}</span> <br>
                             <span><strong>Capacity :</strong> {{room.player_count}}/{{room.capacity}}</span> <br>
                         </div>
-                        <button @click='joinRoom' class="btn btn-success" type="submit" id="button-addon2">Join
+                        <button @click='joinRoom(room)' class="btn btn-success" type="submit" id="button-addon2">Join
                             Room</button>
                     </li>
                 </ul>
@@ -56,6 +56,7 @@
                     </div>
                     <button class="btn btn-success" type="submit" id="button-addon2">Create
                         Room</button>
+                    <span class='room-error' v-if='room.error'>Unexpected error while creating room.</span>
                 </form>
 
             </div>

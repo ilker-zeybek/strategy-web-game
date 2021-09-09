@@ -5,8 +5,15 @@ const app = {
       room: {
         name: null,
         capacity: 'Room Capacity',
+        error: null,
       },
+      createRoomError: null,
+      done: null,
     };
+  },
+  async beforeMount() {
+    //Get the room data on mount event.
+    this.getRoomData();
   },
   methods: {
     goToProfile() {
@@ -24,6 +31,7 @@ const app = {
       let response = await fetch('http://localhost:3000/lobby/data');
       response = await response.json();
       this.rooms = response.data;
+      this.done = true;
     },
     async createRoom() {
       let response = await fetch('http://localhost:3000/lobby/create', {
@@ -39,7 +47,13 @@ const app = {
         this.getRoomData();
         this.room.name = null;
         this.room.capacity = null;
+        this.room.error = false;
+      } else {
+        this.room.error = true;
       }
+    },
+    joinRoom(room) {
+      window.location.href = `http://localhost:3000/room/${room.id}`;
     },
   },
 };

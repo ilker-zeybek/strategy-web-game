@@ -41,6 +41,9 @@ router.post('/create', async (req, res) => {
         room_name: req.body.name,
         player_count: 1,
         capacity: parseInt(req.body.capacity),
+        players: {
+          1: session.user.id,
+        },
       },
     ]);
     if (error) {

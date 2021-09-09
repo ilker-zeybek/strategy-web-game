@@ -2,9 +2,9 @@
   font-family: 'Poppins', sans-serif;
 }
 
-/*[v-cloak] {
+[v-cloak] {
   display: none !important;
-}*/
+}
 
 html,
 body {
@@ -111,4 +111,10 @@ form {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+.room-error {
+  margin-top: 1rem;
+  font-weight: bold;
+  color: red;
 }
