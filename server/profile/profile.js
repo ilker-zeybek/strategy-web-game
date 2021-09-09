@@ -12,24 +12,25 @@ router.use(express.static('../public/profile'));
 router.get('/profile', async (req, res) => {
   const session = supabase.auth.session();
   if (session) {
-    res.sendFile(path.resolve('../public/profile/profile.html'));
+    return res.sendFile(path.resolve('../public/profile/profile.html'));
   } else {
-    res.redirect('/');
+    return res.redirect('/');
   }
 });
 
-router.get('/:id', async (req, res) => {
-  const userID = req.params.id;
+router.get('/data', async (req, res) => {
+  const session = supabase.auth.session();
+  const userID = session.user.id;
   const { data, error } = await supabase
     .from('profiles')
     .select('email,character_name,profile_picture,win_count,lose_count')
     .eq('id', userID);
   if (error) {
-    res.send({
+    return res.send({
       message: 'Unexpected error.',
     });
   } else {
-    res.send({
+    return res.send({
       email: data[0].email,
       characterName: data[0].character_name,
       profilePictureUrl: data[0].profile_picture,
@@ -47,11 +48,11 @@ router.post('/profile/setname', async (req, res) => {
       .update({ character_name: req.body.name })
       .eq('id', session.user.id);
     if (error) {
-      res.send({
+      return res.send({
         message: 'Failed to set character name.',
       });
     } else {
-      res.send({
+      return res.send({
         message: 'Character name set successfully.',
       });
     }
@@ -71,7 +72,7 @@ router.post(
           contentType: req.file.mimetype,
         });
       if (error) {
-        res.send({
+        return res.send({
           message: 'Failed to upload.',
         });
       } else {
@@ -79,7 +80,7 @@ router.post(
           .from('profile_pictures')
           .getPublicUrl(`${session.user.id}.jpg`);
         if (error) {
-          res.send({
+          return res.send({
             message: 'Failed to get profile picture url.',
           });
         } else {
@@ -88,11 +89,11 @@ router.post(
             .update({ profile_picture: publicURL })
             .match({ id: session.user.id });
           if (error) {
-            res.send({
+            return res.send({
               message: 'Failed to insert profile picture url.',
             });
           } else {
-            res.send({
+            return res.send({
               message: 'Successfully uploaded.',
             });
           }

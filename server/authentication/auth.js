@@ -1,9 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const supabase = require('../supabase/client');
-const cookieParser = require('cookie-parser');
-
-router.use(cookieParser());
 
 router.post('/register', async (req, res) => {
   if (req.body.password === req.body.passwordRepeat) {
@@ -13,7 +10,7 @@ router.post('/register', async (req, res) => {
         password: req.body.password,
       });
       if (error) {
-        res.send({
+        return res.send({
           message: 'Email is in use.',
         });
       } else {
@@ -29,23 +26,23 @@ router.post('/register', async (req, res) => {
           },
         ]);
         if (error) {
-          res.send({
+          return res.send({
             message: 'Unexpected error.',
           });
         } else {
-          res.send({
+          return res.send({
             status: 200,
             message: 'Successfully registered.',
           });
         }
       }
     } catch (e) {
-      res.send({
+      return res.send({
         message: 'Unexpected error.',
       });
     }
   } else {
-    res.send({
+    return res.send({
       message: 'Passwords do not match.',
     });
   }
@@ -58,20 +55,16 @@ router.post('/login', async (req, res) => {
       password: req.body.password,
     });
     if (error) {
-      res.send({
+      return res.send({
         message: 'Authentication failed.',
       });
     } else {
-      res
-        .cookie('id', session.user.id, {
-          maxAge: 2 * 60 * 60 * 1000,
-        })
-        .send({
-          message: 'Successfully logged in.',
-        });
+      return res.send({
+        message: 'Successfully logged in.',
+      });
     }
   } catch (e) {
-    res.send({
+    return res.send({
       message: 'Unexpected error.',
     });
   }
@@ -80,11 +73,11 @@ router.post('/login', async (req, res) => {
 router.get('/signout', async (req, res) => {
   const { error } = await supabase.auth.signOut();
   if (error) {
-    res.send({
+    return res.send({
       message: 'Unexpected error.',
     });
   } else {
-    res.send({
+    return res.send({
       message: 'Successfully signed out.',
     });
   }

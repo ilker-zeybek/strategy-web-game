@@ -8,7 +8,7 @@ const isInRoom = async (req, res, next) => {
   const session = await supabase.auth.session();
   const { data, error } = await supabase.from('rooms').select('players');
   if (error) {
-    res.send({
+    return res.send({
       message: 'Unexpected error.',
     });
   } else {
@@ -32,7 +32,7 @@ router.get('/:id', isInRoom, async (req, res) => {
     .select('player_count,capacity,players')
     .eq('id', req.params.id);
   if (error) {
-    res.send({
+    return res.send({
       message: 'Unexpected error.',
     });
   } else {
@@ -51,14 +51,14 @@ router.get('/:id', isInRoom, async (req, res) => {
         })
         .eq('id', req.params.id);
       if (error) {
-        res.send({
+        return res.send({
           message: 'Unexpected error.',
         });
       } else {
-        res.sendFile(path.resolve('../public/room/room.html'));
+        return res.sendFile(path.resolve('../public/room/room.html'));
       }
     } else {
-      res.send({
+      return res.send({
         message: 'Room is full.',
       });
     }

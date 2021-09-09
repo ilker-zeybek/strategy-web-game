@@ -1,5 +1,3 @@
-const getCookie = require('../utilities/getCookie');
-
 const app = {
   data() {
     return {
@@ -62,8 +60,7 @@ const app = {
       this.getProfileData();
     },
     async getProfileData() {
-      const userID = getCookie('id');
-      let response = await fetch(`http://localhost:3000/user/${userID}`);
+      let response = await fetch('http://localhost:3000/user/data');
       response = await response.json();
       this.email = response.email;
       this.characterNameDisplay = response.characterName;

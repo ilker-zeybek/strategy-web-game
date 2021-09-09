@@ -8,18 +8,18 @@ router.use(express.static('../public/lobby'));
 router.get('/', async (req, res) => {
   const session = await supabase.auth.session();
   if (session) {
-    res.sendFile(path.resolve('../public/lobby/lobby.html'));
+    return res.sendFile(path.resolve('../public/lobby/lobby.html'));
   }
 });
 
 router.get('/data', async (req, res) => {
   const { data, error } = await supabase.from('rooms').select('*');
   if (error) {
-    res.send({
+    return res.send({
       message: 'Unexpected error.',
     });
   } else {
-    res.send({ data });
+    return res.send({ data });
   }
 });
 
@@ -30,7 +30,7 @@ router.post('/create', async (req, res) => {
     .select('character_name')
     .eq('id', session.user.id);
   if (error) {
-    res.send({
+    return res.send({
       message: 'Unexpected error.',
     });
   } else {
@@ -47,11 +47,11 @@ router.post('/create', async (req, res) => {
       },
     ]);
     if (error) {
-      res.send({
+      return res.send({
         message: 'Unexpected error.',
       });
     } else {
-      res.send({
+      return res.send({
         message: 'Successful.',
       });
     }
