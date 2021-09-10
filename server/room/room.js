@@ -25,8 +25,11 @@ const isInRoom = async (req, res, next) => {
   }
 };
 
+router.use(express.static('../public/room/'));
+
 router.get('/:id', isInRoom, async (req, res) => {
   const session = await supabase.auth.session();
+  const io = req.app.get('io');
   const { data, error } = await supabase
     .from('rooms')
     .select('player_count,capacity,players')
@@ -55,7 +58,7 @@ router.get('/:id', isInRoom, async (req, res) => {
           message: 'Unexpected error.',
         });
       } else {
-        return res.sendFile(path.resolve('../public/room/room.html'));
+        res.sendFile(path.resolve('../public/room/room.html'));
       }
     } else {
       return res.send({
@@ -63,8 +66,9 @@ router.get('/:id', isInRoom, async (req, res) => {
       });
     }
   }
+  io.on('connection', (socket) => {
+    console.log(`${socket.id} connected.`);
+  });
 });
-
-router.use(express.static('../public/room/'));
 
 module.exports = router;
