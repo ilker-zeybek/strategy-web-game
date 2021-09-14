@@ -16,7 +16,102 @@
 </head>
 
 <body>
-    Welcome to room.
+    <div v-cloak id="app">
+        <div class="wrapper">
+            <div class="header">
+                <img src="./assets/logo.png" alt="logo">
+                <h1>SINGULARITY</h1>
+            </div>
+            <div class="main">
+                <div id="message-box">
+                    <ul>
+                        <li class="message">
+                            <div class="container-message">
+                                <img v-bind:src="profilePictureUrl" alt="profile-picture">
+                                <span class="message-text">{{characterName}}: {{message}}</span>
+                            </div>
+                        </li>
+
+                        <li class="message mine">
+                            <div class="container-message">
+                                <img v-bind:src="profilePictureUrl" alt="profile-picture">
+                                <span class="message-text">{{characterName}}: {{message}}</span>
+                            </div>
+                        </li>
+                        <li class="message mine">
+                            <div class="container-message">
+                                <img v-bind:src="profilePictureUrl" alt="profile-picture">
+                                <span class="message-text">{{characterName}}: {{message}}</span>
+                            </div>
+                        </li>
+                        <li class="message mine">
+                            <div class="container-message">
+                                <img v-bind:src="profilePictureUrl" alt="profile-picture">
+                                <span class="message-text">{{characterName}}: {{message}}</span>
+                            </div>
+                        </li>
+                        <li class="message mine">
+                            <div class="container-message">
+                                <img v-bind:src="profilePictureUrl" alt="profile-picture">
+                                <span class="message-text">{{characterName}}: {{message}}</span>
+                            </div>
+                        </li>
+                        <li class="message mine">
+                            <div class="container-message">
+                                <img v-bind:src="profilePictureUrl" alt="profile-picture">
+                                <span class="message-text">{{characterName}}: {{message}}</span>
+                            </div>
+                        </li>
+                        <li class="message mine">
+                            <div class="container-message">
+                                <img v-bind:src="profilePictureUrl" alt="profile-picture">
+                                <span class="message-text">{{characterName}}: {{message}}</span>
+                            </div>
+                        </li>
+                        <li class="message mine">
+                            <div class="container-message">
+                                <img v-bind:src="profilePictureUrl" alt="profile-picture">
+                                <span class="message-text">{{characterName}}: {{message}}</span>
+                            </div>
+                        </li>
+                        <li class="message mine">
+                            <div class="container-message">
+                                <img v-bind:src="profilePictureUrl" alt="profile-picture">
+                                <span class="message-text">{{characterName}}: {{message}}</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="input-box">
+                        <input v-model='message' type="text" name="message" class="form-control" id="validationServer01"
+                            placeholder="Type a message" aria-label="message" aria-describedby="button-addon2">
+                        <button @click='sendMessage' class="btn btn-success" type="submit"
+                            id="button-addon2"><span>Send</span></button>
+                    </div>
+                </div>
+                <div class="commit-box">
+                    <div class="ready-counter">
+                        <h3>{{readyCount}}/{{totalPlayers}}</h3>
+                    </div>
+                    <div v-if='everyoneReady' class="ready-countdown">
+                        <h3>{{timer}}..</h3>
+                    </div>
+                    <div class="ready-button">
+                        <button v-if='!ready' @click='ready' class="btn btn-success btn-lg" type="submit"
+                            id="button-addon2"><span>Ready</span></button>
+                        <button v-if='ready' @click='notReady' class="btn btn-danger btn-lg" type="submit"
+                            id="button-addon2"><span>Unready</span></button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <button @click='leaveRoom' class="btn btn-danger" type="submit" id="button-addon2">Leave the
+                    Room</button>
+                <button @click='goToProfile' class="btn btn-success" type="submit" id="button-addon2">Go to
+                    Profile</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.2/vue.global.prod.min.js"></script>
     <script src="https://cdn.socket.io/4.1.2/socket.io.min.js"
         integrity="sha384-toS6mmwu70G0fw54EGlWWeA4z3dyJ+dlXBtSURSKN4vyRFOcxd3Bzjj/AoOwY+Rg"
         crossorigin="anonymous"></script>

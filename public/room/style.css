@@ -1,0 +1,149 @@
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+[v-cloak] {
+  display: none !important;
+}
+
+html,
+body {
+  background: black !important;
+}
+
+#app {
+  height: 100%;
+}
+
+.wrapper {
+  padding: 3rem 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.header {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  margin-bottom: 5rem;
+}
+
+.header > h1 {
+  margin: 0 !important;
+}
+
+.header > img {
+  margin-right: 2rem;
+}
+
+.main {
+  height: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 80%;
+}
+
+#message-box {
+  background: black;
+  color: black;
+  font-weight: bold;
+  width: 50%;
+  border-radius: 1rem;
+  margin-right: 10rem;
+}
+#message-box .message {
+  display: flex;
+  flex-direction: horizontal;
+  margin: 1.5rem 0;
+  position: relative;
+}
+
+.container-message {
+  padding: 1rem;
+  width: 50%;
+  border-radius: 1rem;
+  background-color: #ffffff;
+}
+
+.mine > .container-message {
+  padding: 1rem;
+  width: 50%;
+  border-radius: 1rem;
+  background-color: rgb(36, 134, 214);
+}
+
+#message-box .mine {
+  flex-direction: row-reverse;
+}
+
+.input-box {
+  display: flex;
+  justify-content: space-evenly;
+  margin: auto;
+  padding: 2rem !important;
+}
+
+.input-box > input {
+  width: 60%;
+}
+
+ul {
+  height: 50vh;
+  padding: 0 2rem !important;
+  margin-bottom: 0 !important;
+  border: 1px solid white;
+  overflow: auto;
+}
+
+.commit-box {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+}
+
+.commit-box > .ready-counter {
+  color: white;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.commit-box > .ready-countdown {
+  color: white;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.footer > button {
+  margin: 0 1rem;
+}
+
+.footer {
+  margin-top: 5rem;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 1rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

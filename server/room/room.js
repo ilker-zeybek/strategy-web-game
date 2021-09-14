@@ -66,8 +66,24 @@ router.get('/:id', isInRoom, async (req, res) => {
       });
     }
   }
-  io.on('connection', (socket) => {
-    console.log(`${socket.id} connected.`);
+  io.on('connection', async (socket) => {
+    socket.on('general-message', async (data) => {
+      const to = data.roomID;
+      const from = data.userID;
+      const message = data.message;
+      const { error } = await supabase.from('generalchat').insert({
+        from: from,
+        to: to,
+        message: message,
+      });
+      if (error) {
+        return res.send({
+          message: 'Unexpected error.',
+        });
+      } else {
+        socket.to(to).emit('general-message');
+      }
+    });
   });
 });
 
