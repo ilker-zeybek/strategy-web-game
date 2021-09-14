@@ -1,5 +1,3 @@
-//const socket = io();
-
 const app = {
   data() {
     return {
@@ -10,6 +8,7 @@ const app = {
       profilePictureUrl: null,
       characterName: null,
       message: null,
+      socket: io(),
     };
   },
   methods: {
