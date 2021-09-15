@@ -57,8 +57,11 @@ body {
   width: 50%;
   border-radius: 1rem;
   margin-right: 10rem;
+  border: 1px solid white;
+  padding: 2rem;
 }
-#message-box .message {
+
+#message-box > div > .message {
   display: flex;
   flex-direction: horizontal;
   margin: 1.5rem 0;
@@ -72,6 +75,11 @@ body {
   background-color: #ffffff;
 }
 
+.container-message > img {
+  margin-right: 1rem;
+  border-radius: 1rem;
+}
+
 .mine > .container-message {
   padding: 1rem;
   width: 50%;
@@ -79,7 +87,7 @@ body {
   background-color: rgb(36, 134, 214);
 }
 
-#message-box .mine {
+#message-box > div > .mine {
   flex-direction: row-reverse;
 }
 
@@ -98,7 +106,6 @@ ul {
   height: 50vh;
   padding: 0 2rem !important;
   margin-bottom: 0 !important;
-  border: 1px solid white;
   overflow: auto;
 }
 

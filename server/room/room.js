@@ -1,12 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
+const nodeFetch = require('node-fetch');
 
 const supabase = require('../supabase/client');
 
+let sockets = [];
+
 const isInRoom = async (req, res, next) => {
   const session = await supabase.auth.session();
-  const { data, error } = await supabase.from('rooms').select('players');
+  const io = req.app.get('io');
+  const { data, error } = await supabase.from('rooms').select('id,players');
   if (error) {
     return res.send({
       message: 'Unexpected error.',
@@ -15,21 +19,56 @@ const isInRoom = async (req, res, next) => {
     for (room in data) {
       for (const key in data[room].players) {
         if (data[room].players[key] === session.user.id) {
-          return res.send({
-            message: 'You are already in another room.',
+          io.on('connection', (socket) => {
+            sockets.push({ id: session.user.id, socket: socket.id });
+            socket.join(req.params.id);
+            socket.on('generalmessage', async (msg) => {
+              const to = req.params.id;
+              const from = session.user.id;
+              const message = msg;
+              const { error } = await supabase.from('generalchat').insert({
+                from: from,
+                to: to,
+                message: message,
+              });
+              if (error) {
+                return res.send({
+                  message: 'Unexpected error.',
+                });
+              } else {
+                let data = await nodeFetch('http://localhost:3000/user/data');
+                data = await data.json();
+                socket.broadcast.to(to).emit('generalmessage', {
+                  characterName: data.characterName,
+                  profilePictureUrl: data.profilePictureUrl,
+                  message: message,
+                });
+                io.sockets.emit('generalmessage', {
+                  characterName: data.characterName,
+                  profilePictureUrl: data.profilePictureUrl,
+                  message: message,
+                });
+              }
+            });
           });
         }
+
+        return res.sendFile(path.resolve('../public/room/room.html'));
       }
     }
+
     next();
   }
+};
+
+const hasSocket = async (req, res, next) => {
+  const session = await supabase.auth.session();
 };
 
 router.use(express.static('../public/room/'));
 
 router.get('/:id', isInRoom, async (req, res) => {
   const session = await supabase.auth.session();
-  const io = req.app.get('io');
   const { data, error } = await supabase
     .from('rooms')
     .select('player_count,capacity,players')
@@ -66,25 +105,6 @@ router.get('/:id', isInRoom, async (req, res) => {
       });
     }
   }
-  io.on('connection', async (socket) => {
-    socket.on('general-message', async (data) => {
-      const to = data.roomID;
-      const from = data.userID;
-      const message = data.message;
-      const { error } = await supabase.from('generalchat').insert({
-        from: from,
-        to: to,
-        message: message,
-      });
-      if (error) {
-        return res.send({
-          message: 'Unexpected error.',
-        });
-      } else {
-        socket.to(to).emit('general-message');
-      }
-    });
-  });
 });
 
 module.exports = router;
